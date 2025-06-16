@@ -6,13 +6,20 @@
     Title="Order Info">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="12">
-            <Label Text="Order Info" FontSize="24" FontAttributes="Bold" />
-
-            <Label x:Name="OrderIdLabel" />
-            <Label x:Name="CustomerLabel" />
-            <Label x:Name="ProductsLabel" />
-            <Label x:Name="LatestDeliveryStateLabel" />
-        </VerticalStackLayout>
+        <CollectionView x:Name="OrderCollectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="5" BorderColor="LightGray" CornerRadius="8">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Id, StringFormat='Order ID: {0}'}" FontAttributes="Bold" />
+                            <Label Text="{Binding OrderDate, StringFormat='Date: {0:yyyy-MM-dd}'}" />
+                            <Label Text="{Binding CustomerDisplay}" />
+                            <Label Text="{Binding ProductsDisplay}" />
+                            <Label Text="{Binding DeliveryStateDisplay}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </ScrollView>
 </ContentPage>

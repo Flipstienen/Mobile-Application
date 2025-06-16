@@ -2,6 +2,7 @@
 using MobileApplication.Core.Model;
 using System;
 using System.Linq;
+using System.Text.Json;
 
 namespace MobileApplication.Maui;
 
@@ -22,19 +23,29 @@ public partial class MainPage : ContentPage
     {
         try
         {
-            var order = await ApiHelper.Instance.GetAsync<Order>("/api/Order/1");
+            var shallowOrders = await ApiHelper.Instance.GetAsync<List<Order>>("/api/Order");
+            var fullOrders = new List<Order>();
 
-            OrderIdLabel.Text = $"Order ID: {order.Id}, Date: {order.OrderDate:yyyy-MM-dd}";
-            CustomerLabel.Text = $"Customer: {order.Customer?.Name}, Address: {order.Customer?.Address}";
+            foreach (var o in shallowOrders)
+            {
+                var fullOrder = await ApiHelper.Instance.GetAsync<Order>($"/api/Order/{o.Id}");
+                fullOrders.Add(fullOrder);
+            }
 
-            ProductsLabel.Text = "Products: " + string.Join(", ", order.Products.Select(p => p.Name));
-
-            var latestState = order.DeliveryStates.OrderByDescending(s => s.DateTime).FirstOrDefault();
-            LatestDeliveryStateLabel.Text = $"Latest Delivery State: {latestState?.State} @ {latestState?.DateTime:yyyy-MM-dd HH:mm}";
+            OrderCollectionView.ItemsSource = fullOrders.Select(o => new
+            {
+                o.Id,
+                o.OrderDate,
+                CustomerDisplay = $"Customer: {o.Customer?.Name ?? "N/A"}, Address: {o.Customer?.Address ?? "N/A"}",
+                ProductsDisplay = "Products: " + string.Join(", ", o.Products?.Select(p => p.Name) ?? new List<string> { "N/A" }),
+                DeliveryStateDisplay = o.DeliveryStates != null && o.DeliveryStates.Any()
+                    ? $"Latest Delivery State: {o.DeliveryStates.OrderByDescending(ds => ds.DateTime).First().State} @ {o.DeliveryStates.OrderByDescending(ds => ds.DateTime).First().DateTime:yyyy-MM-dd HH:mm}"
+                    : "No delivery states"
+            }).ToList();
         }
         catch (Exception ex)
         {
-            OrderIdLabel.Text = $"Error: {ex.Message}";
+            await DisplayAlert("Error", ex.Message, "OK");
         }
     }
 }
