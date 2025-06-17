@@ -3,23 +3,27 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MobileApplication.Maui.MainPage"
-    Title="Order Info">
+    BackgroundColor="#2C2C2C">
 
-    <ScrollView>
-        <CollectionView x:Name="OrderCollectionView">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="10" Margin="5" BorderColor="LightGray" CornerRadius="8">
-                        <VerticalStackLayout>
-                            <Label Text="{Binding Id, StringFormat='Order ID: {0}'}" FontAttributes="Bold" />
-                            <Label Text="{Binding OrderDate, StringFormat='Date: {0:yyyy-MM-dd}'}" />
-                            <Label Text="{Binding CustomerDisplay}" />
-                            <Label Text="{Binding ProductsDisplay}" />
-                            <Label Text="{Binding DeliveryStateDisplay}" />
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+    <ScrollView >
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <Frame Padding="0" HasShadow="False" CornerRadius="8" BorderColor="White">
+                <Grid Padding="10" ColumnDefinitions="Auto,*">
+                    <Image Source="search_icon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                    <Entry x:Name="searchEntry"
+                        Placeholder="Search products or info"
+                        Grid.Column="1"
+                        BackgroundColor="Transparent"/>
+                </Grid>
+            </Frame>
+
+            <!-- Deze moeten nog worden aangepast naar .svg ofzo, ik heb er maar even 4 emoji's gepakt via chatgpt -->
+            <VerticalStackLayout Spacing="20" Padding="2"  HorizontalOptions="Center">
+                <Button Text="📦 Current Order" Style="{StaticResource MenuButtonStyle}" Clicked="OnCurrentOrderClicked" WidthRequest="325" HeightRequest="100"/>
+                <Button Text="📋 Schedule" Style="{StaticResource MenuButtonStyle}" Clicked="OnScheduleClicked" WidthRequest="325" HeightRequest="100"/>
+                <Button Text="📍 Tracking" Style="{StaticResource MenuButtonStyle}" Clicked="OnTrackingClicked" WidthRequest="325" HeightRequest="100"/>
+                <Button Text="🌧️ Weather" Style="{StaticResource MenuButtonStyle}" Clicked="OnWeatherClicked" WidthRequest="325" HeightRequest="100"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
