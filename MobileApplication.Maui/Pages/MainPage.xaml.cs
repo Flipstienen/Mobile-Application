@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui.Controls;
 
-namespace MobileApplication.Maui;
+namespace MobileApplication.Maui.Pages;
 
 public partial class MainPage : ContentPage
 {

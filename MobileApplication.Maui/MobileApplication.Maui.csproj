@@ -77,13 +77,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="SchedulePage.xaml.cs">
-	    <DependentUpon>SchedulePage.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="SchedulePage.xaml">
+	  <MauiXaml Update="Pages\SchedulePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

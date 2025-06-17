@@ -1,4 +1,5 @@
-﻿namespace MobileApplication.Maui;
+﻿using MobileApplication.Maui.Pages;
+namespace MobileApplication.Maui;
 
 public partial class AppShell : Shell
 {
