@@ -5,26 +5,8 @@
     x:Class="MobileApplication.Maui.MainPage"
     BackgroundColor="#2C2C2C">
 
-    <ScrollView>
+    <ScrollView >
         <VerticalStackLayout Padding="20" Spacing="20">
-            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Start">
-                <Label Text="M A T R I X  INC." 
-                       FontSize="24" 
-                       FontAttributes="Bold"
-                       HorizontalOptions="Start"
-                       VerticalOptions="Center"/>
-                <Image Source="usr.jpg"
-                       HeightRequest="40"
-                       WidthRequest="40"
-                       Aspect="AspectFill"
-                       VerticalOptions="Center"
-                       HorizontalOptions="End">
-                    <Image.Clip>
-                        <EllipseGeometry Center="20,20" RadiusX="20" RadiusY="20" />
-                    </Image.Clip>
-                </Image>
-            </Grid>
-
             <Frame Padding="0" HasShadow="False" CornerRadius="8" BorderColor="White">
                 <Grid Padding="10" ColumnDefinitions="Auto,*">
                     <Image Source="search_icon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
@@ -36,11 +18,11 @@
             </Frame>
 
             <!-- Deze moeten nog worden aangepast naar .svg ofzo, ik heb er maar even 4 emoji's gepakt via chatgpt -->
-            <VerticalStackLayout Spacing="15">
-                <Button Text="📦 Current Order" Style="{StaticResource MenuButtonStyle}" Clicked="OnCurrentOrderClicked"/>
-                <Button Text="📋 Schedule" Style="{StaticResource MenuButtonStyle}" Clicked="OnScheduleClicked"/>
-                <Button Text="📍 Tracking" Style="{StaticResource MenuButtonStyle}" Clicked="OnTrackingClicked"/>
-                <Button Text="🌧️ Weather" Style="{StaticResource MenuButtonStyle}" Clicked="OnWeatherClicked"/>
+            <VerticalStackLayout Spacing="20" Padding="2"  HorizontalOptions="Center">
+                <Button Text="📦 Current Order" Style="{StaticResource MenuButtonStyle}" Clicked="OnCurrentOrderClicked" WidthRequest="325" HeightRequest="100"/>
+                <Button Text="📋 Schedule" Style="{StaticResource MenuButtonStyle}" Clicked="OnScheduleClicked" WidthRequest="325" HeightRequest="100"/>
+                <Button Text="📍 Tracking" Style="{StaticResource MenuButtonStyle}" Clicked="OnTrackingClicked" WidthRequest="325" HeightRequest="100"/>
+                <Button Text="🌧️ Weather" Style="{StaticResource MenuButtonStyle}" Clicked="OnWeatherClicked" WidthRequest="325" HeightRequest="100"/>
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
