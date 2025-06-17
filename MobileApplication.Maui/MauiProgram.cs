@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-
+using DotNetEnv;
 namespace MobileApplication.Maui;
 
 public static class MauiProgram
@@ -7,7 +7,8 @@ public static class MauiProgram
 	public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();
-		builder
+        DotNetEnv.Env.Load();
+        builder
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
 			{

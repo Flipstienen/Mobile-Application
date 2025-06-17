@@ -29,8 +29,10 @@
     </Shell.TitleView>
 
     <ShellContent
+        Title="MainPage"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-    
+    <ShellContent Title ="SchedulePage" Route="SchedulePage"
+                  ContentTemplate="{DataTemplate local:SchedulePage}" />
 </Shell>
 

@@ -76,4 +76,16 @@
 	  <Folder Include="View\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="SchedulePage.xaml.cs">
+	    <DependentUpon>SchedulePage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="SchedulePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

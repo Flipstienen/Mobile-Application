@@ -6,6 +6,7 @@ public partial class MainPage : ContentPage
 {
     public MainPage()
     {
+        
         InitializeComponent();
     }
 
@@ -16,7 +17,7 @@ public partial class MainPage : ContentPage
 
     private void OnScheduleClicked(object sender, EventArgs e)
     {
-        DisplayAlert("Schedule", "Navigating to Schedule", "OK");
+        Shell.Current.GoToAsync(nameof(SchedulePage));
     }
 
     private void OnTrackingClicked(object sender, EventArgs e)
