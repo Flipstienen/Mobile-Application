@@ -13,7 +13,7 @@
                        FontAttributes="Bold"
                        HorizontalOptions="Start"
                        VerticalOptions="Center"/>
-                <Image Source="./Resources/Images/usr.jpg"
+                <Image Source="usr.jpg"
                        HeightRequest="40"
                        WidthRequest="40"
                        Aspect="AspectFill"
