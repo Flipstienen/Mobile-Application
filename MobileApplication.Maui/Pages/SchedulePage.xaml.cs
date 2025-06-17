@@ -1,5 +1,4 @@
 using System.Runtime.InteropServices.Marshalling;
-using Java.Nio.FileNio.Attributes;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
 
@@ -31,8 +30,8 @@ public partial class SchedulePage : ContentPage
         try
         {
             await CreateNewOrderAsync();
-
-            var order = await ApiHelper.Instance.GetAsync<Order>($"/api/Order/55");
+            var orderlist = await ApiHelper.Instance.GetAsync<List<Order>>($"/api/Order?deliveryServiceId={DeliveryServices.id}");
+            var order = await ApiHelper.Instance.GetAsync<Order>($"/api/Order/1");
 
             if (order != null)
             {
@@ -45,12 +44,7 @@ public partial class SchedulePage : ContentPage
                 OrderDateLabel.Text = order.OrderDate.ToString("g");
                 if (order.DeliveryStates != null && order.DeliveryStates.Any())
                 {
-                    var deliveryServiceIds = order.DeliveryStates
-                        .Select(ds => ds.DeliveryServiceId)
-                        .Distinct()
-                        .ToList();
-
-                    DeliveryServiceLabel.Text = string.Join(", ", deliveryServiceIds);
+                    DeliveryServiceLabel.Text = order.DeliveryStates.LastOrDefault().Id.ToString();
                 }
                 else
                 {
@@ -86,23 +80,27 @@ public partial class SchedulePage : ContentPage
                 OrderDate = DateTime.UtcNow,
                 CustomerId = 1,
                 Products = new List<Product>
-            {
-                new Product { Id = 1 },
-                new Product { Id = 2 }
-            },
-                DeliveryStates = new List<DeliveryState>
-            {
-                new DeliveryState
                 {
-                    State = 1,
-                    DateTime = DateTime.UtcNow,
-                    DeliveryServiceId = DeliveryServices.id
+                    new Product
+                            {
+                                Id = 1,
+                                Name = "Nebuchadnezzar",
+                                Description = "Het schip waarop Neo voor het eerst de echte wereld leert kennen",
+                                Price = 10000.0,
+                            }
+                },
+                DeliveryStates = new List<DeliveryState>
+                {
+                    new DeliveryState
+                    {
+                        State = 1,
+                        DateTime = DateTime.UtcNow,
+                        DeliveryServiceId = DeliveryServices.id
+                    }
                 }
-            }
             };
-
             var result = await ApiHelper.Instance.PostAsync<Order>("/api/Order", newOrder);
-
+            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(result));
         }
         catch (Exception ex)
         {

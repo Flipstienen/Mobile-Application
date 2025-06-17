@@ -51,4 +51,5 @@ public sealed class ApiHelper
 
         return JsonConvert.DeserializeObject<T>(responseJson);
     }
+
 }
