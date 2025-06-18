@@ -10,22 +10,22 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
-    private void OnCurrentOrderClicked(object sender, EventArgs e)
+    private async void OnCurrentOrderClicked(object sender, EventArgs e)
     {
         DisplayAlert("Current Order", "Navigating to Current Order", "OK");
     }
 
-    private void OnScheduleClicked(object sender, EventArgs e)
+    private async void OnScheduleClicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync(nameof(SchedulePage));
+        await Shell.Current.GoToAsync(nameof(SchedulePage));
     }
 
-    private void OnTrackingClicked(object sender, EventArgs e)
+    private async void OnTrackingClicked(object sender, EventArgs e)
     {
         DisplayAlert("Tracking", "Navigating to Tracking", "OK");
     }
 
-    private void OnWeatherClicked(object sender, EventArgs e)
+    private async void OnWeatherClicked(object sender, EventArgs e)
     {
         DisplayAlert("Weather", "Navigating to Weather", "OK");
     }
