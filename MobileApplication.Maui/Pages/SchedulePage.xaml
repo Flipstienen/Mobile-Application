@@ -7,7 +7,6 @@
         <Label x:Name="OrderIdLabel"/>
         <Label x:Name="CustomerNameLabel"/>
         <Label x:Name="CustomerAdressLabel"/>
-        <Label x:Name="ProductsLabel"/>
         <Label x:Name="OrderDateLabel"/>
         <Label x:Name="DeliveryServiceLabel"/>
     </VerticalStackLayout>
