@@ -15,6 +15,9 @@ public partial class SchedulePage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        //await SchedulePageViewModel.LoadOrder();
+        if (BindingContext is SchedulePageViewModel viewModel)
+        {
+            await viewModel.LoadOrdersAsync();
+        }
     }
 }

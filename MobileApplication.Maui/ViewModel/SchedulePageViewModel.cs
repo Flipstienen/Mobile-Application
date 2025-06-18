@@ -1,13 +1,22 @@
-﻿using MobileApplication.Maui.Pages;
-using MobileApplication.Maui;
+﻿using System.Collections.ObjectModel;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
+using System.Collections.ObjectModel;
+using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MobileApplication.Maui.ViewModel
 {
-    public class SchedulePageViewModel
+    public partial class SchedulePageViewModel : ObservableObject
     {
-        public async Task LoadOrder()
+        [ObservableProperty]
+        private ObservableCollection<OrderDisplayItem> orders = new();
+        public SchedulePageViewModel()
+        {
+            
+        }
+
+        public async Task LoadOrdersAsync()
         {
             string apiKey = EnvHelper.Instance.GetEnvironmentVariable("API_KEY", "");
             var DeliveryServices = await ApiHelper.Instance.GetAsync<DeliveryService>($"/api/DeliveryServices/{apiKey}");
@@ -21,37 +30,32 @@ namespace MobileApplication.Maui.ViewModel
             try
             {
                 await CreateNewOrderAsync();
+                var fullLastOrders =  new List<Order>();
                 var orderlist = await ApiHelper.Instance.GetAsync<List<Order>>($"/api/Order?deliveryServiceId={DeliveryServices.id}");
-
-                if (order != null)
+                if (orderlist != null)
                 {
-                    OrderIdLabel.Text = order.Id.ToString();
-                    CustomerNameLabel.Text = order.Customer?.Name ?? "Unknown";
-                    CustomerAdressLabel.Text = order.Customer?.Address ?? "Unknown";
-                    OrderDateLabel.Text = order.OrderDate.ToString("g");
-                    if (order.DeliveryStates != null && order.DeliveryStates.Any())
+                    foreach(var item in orderlist.TakeLast(15))
                     {
-                        DeliveryServiceLabel.Text = order.DeliveryStates.LastOrDefault().State.ToString();
+                        fullLastOrders.Add(await ApiHelper.Instance.GetAsync<Order>($"/api/Order/{item.Id}"));
                     }
-                    else
+                    Orders = new ObservableCollection<OrderDisplayItem>(fullLastOrders.Select(o => new OrderDisplayItem
                     {
-                        DeliveryServiceLabel.Text = "No delivery states found";
-                    }
+                        Id = o.Id,
+                        OrderDate = o.OrderDate,
+                        CustomerDisplay = $"Customer: {o.Customer?.Name ?? "N/A"}, Address: {o.Customer?.Address ?? "N/A"}",
+                        DeliveryStateDisplay = $"Last Delivery State: {o.DeliveryStates.LastOrDefault().State}"
+                    })); 
                 }
+                
+                
                 else
                 {
                     Console.WriteLine("Order details not found.");
-                    await DisplayAlert("Warning", "Order details not found.", "OK");
-                    OrderIdLabel.Text = "Not Found";
-                    CustomerNameLabel.Text = "Not Found";
-                    CustomerAdressLabel.Text = "Not Found";
-                    OrderDateLabel.Text = "Not Found";
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"API Error: {ex.Message}");
-                await DisplayAlert("Error", $"API Error: {ex.Message}", "OK");
             }
         }
 
@@ -62,10 +66,10 @@ namespace MobileApplication.Maui.ViewModel
                 var lastDate = Preferences.Get("LastUpdateDate", "");
                 if (!DateTime.TryParse(lastDate, out DateTime parsedLastDate) || parsedLastDate.Date < DateTime.Today)
                 {
+                    string apiKey = EnvHelper.Instance.GetEnvironmentVariable("API_KEY", "");
+                    var DeliveryServices = await ApiHelper.Instance.GetAsync<DeliveryService>($"/api/DeliveryServices/{apiKey}");
                     for (int i = 0; i < 15; i++)
                     {
-                        string apiKey = EnvHelper.Instance.GetEnvironmentVariable("API_KEY", "");
-                        var DeliveryServices = await ApiHelper.Instance.GetAsync<DeliveryService>($"/api/DeliveryServices/{apiKey}");
                         var newOrder = new Order
                         {
                             OrderDate = DateTime.UtcNow,
@@ -79,9 +83,16 @@ namespace MobileApplication.Maui.ViewModel
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                Console.WriteLine("Error", ex.Message, "OK");
             }
         }
     }
 }
 
+public class OrderDisplayItem
+{
+    public int Id { get; set; }
+    public DateTime OrderDate { get; set; }
+    public string CustomerDisplay { get; set; }
+    public string DeliveryStateDisplay { get; set; }
+}
