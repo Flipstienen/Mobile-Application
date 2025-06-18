@@ -1,12 +1,10 @@
-﻿using Microsoft.Maui.Controls;
-
-namespace MobileApplication.Maui.Pages;
+﻿namespace MobileApplication.Maui.Pages;
 
 public partial class MainPage : ContentPage
 {
     public MainPage()
     {
-        
+
         InitializeComponent();
     }
 

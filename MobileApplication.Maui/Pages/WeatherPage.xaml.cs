@@ -1,8 +1,6 @@
 using System.Text.Json;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
-using Microsoft.Maui.ApplicationModel;
-using Microsoft.Maui.Devices.Sensors;
 
 namespace MobileApplication.Maui.Pages;
 
