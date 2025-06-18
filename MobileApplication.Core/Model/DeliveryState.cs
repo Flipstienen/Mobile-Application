@@ -7,4 +7,5 @@ public class DeliveryState
     public DateTime DateTime { get; set; }
     public int OrderId { get; set; }
     public int DeliveryServiceId { get; set; }
+    public DeliveryService DeliveryService { get; set; }
 }

@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MobileApplication.Maui"
+    xmlns:Pages="clr-namespace:MobileApplication.Maui.Pages"
     xmlns:shell="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
     Title="MobileApplication.Maui">
 
@@ -30,9 +31,9 @@
 
     <ShellContent
         Title="MainPage"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate Pages:MainPage}"
         Route="MainPage" />
     <ShellContent Title ="SchedulePage" Route="SchedulePage"
-                  ContentTemplate="{DataTemplate local:SchedulePage}" />
+                  ContentTemplate="{DataTemplate Pages:SchedulePage}" />
 </Shell>
 

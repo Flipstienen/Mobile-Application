@@ -3,7 +3,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using MobileApplication.Core.Model;
 using Newtonsoft.Json;
+using Sprache;
 
 namespace MobileApplication.Core.Helpers;
 
@@ -45,10 +47,31 @@ public sealed class ApiHelper
         var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
         var response = await _httpClient.PostAsync($"{_baseUrl}{endpoint}", content);
+
         response.EnsureSuccessStatusCode();
 
         string responseJson = await response.Content.ReadAsStringAsync();
 
         return JsonConvert.DeserializeObject<T>(responseJson);
     }
+
+    public async Task<T> CreateOrderAsync<T>(object data)
+    {
+        string jsonData = JsonConvert.SerializeObject(data);
+        var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync($"{_baseUrl}/api/order", content);
+
+        response.EnsureSuccessStatusCode();
+
+        string responseJson = await response.Content.ReadAsStringAsync();
+
+        int orderId = JsonConvert.DeserializeObject<Order>(responseJson).Id;
+        content = new StringContent(orderId.ToString(), Encoding.UTF8, "application/json");
+        var result = await _httpClient.PostAsync($"{_baseUrl}/api/DeliveryStates/StartDelivery?OrderId={orderId}", null);
+
+        string resultJson = await result.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<T>(responseJson);
+    }
+
 }
