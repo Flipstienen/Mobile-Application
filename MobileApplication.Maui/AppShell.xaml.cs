@@ -7,5 +7,6 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
         Routing.RegisterRoute(nameof(SchedulePage), typeof(SchedulePage));
+        Routing.RegisterRoute(nameof(WeatherPage), typeof(WeatherPage));
     }
 }

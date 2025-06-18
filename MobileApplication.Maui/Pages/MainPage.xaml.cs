@@ -27,6 +27,6 @@ public partial class MainPage : ContentPage
 
     private async void OnWeatherClicked(object sender, EventArgs e)
     {
-        DisplayAlert("Weather", "Navigating to Weather", "OK");
+        Shell.Current.GoToAsync(nameof(WeatherPage));
     }
 }
