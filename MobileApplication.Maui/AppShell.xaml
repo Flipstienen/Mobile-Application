@@ -5,9 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MobileApplication.Maui"
     xmlns:Pages="clr-namespace:MobileApplication.Maui.Pages"
-    xmlns:shell="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
-    Title="MobileApplication.Maui">
+    Title="MobileApplication.Maui"
+    FlyoutBehavior="Disabled">
 
+    <!-- Custom TitleView with your app name and user image -->
     <Shell.TitleView>
         <Grid ColumnDefinitions="*,Auto" Padding="10">
             <Label Text="M A T R I X  INC." 
@@ -29,13 +30,20 @@
         </Grid>
     </Shell.TitleView>
 
-    <ShellContent
-        Title="MainPage"
-        ContentTemplate="{DataTemplate Pages:MainPage}"
-        Route="MainPage" />
-    <ShellContent Title ="SchedulePage" Route="SchedulePage"
-                  ContentTemplate="{DataTemplate Pages:SchedulePage}" />
-    <ShellContent Title ="WeatherPage" Route="WeatherPage"
-              ContentTemplate="{DataTemplate Pages:WeatherPage}" />
-</Shell>
+    <!-- Bottom TabBar replacing the flyout menu -->
+    <TabBar>
+        <Tab Title="Dashboard" Route="MainPage">
+            <ShellContent ContentTemplate="{DataTemplate Pages:MainPage}" />
+        </Tab>
+        <Tab Title="Schedule" Route="SchedulePage">
+            <ShellContent ContentTemplate="{DataTemplate Pages:SchedulePage}" />
+        </Tab>
+        <Tab Title="Current Order" Route="CurrentOrderPage">
+            <ShellContent ContentTemplate="{DataTemplate Pages:CurrentOrderPage}" />
+        </Tab>
+        <Tab Title="Weather" Route="WeatherPage">
+            <ShellContent ContentTemplate="{DataTemplate Pages:WeatherPage}" />
+        </Tab>
+    </TabBar>
 
+</Shell>

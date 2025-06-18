@@ -3,22 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModel="clr-namespace:MobileApplication.Maui.ViewModel"
              x:Class="MobileApplication.Maui.Pages.SchedulePage"
-             Title="SchedulePage">
+             Title="Schedule"
+             BackgroundColor="#F3F4F6">
+
     <ContentPage.BindingContext>
-        <ViewModel:SchedulePageViewModel/>
+        <ViewModel:SchedulePageViewModel />
     </ContentPage.BindingContext>
 
-    <CollectionView x:Name="OrderCollectionView" ItemsSource="{Binding Orders}">
+    <CollectionView x:Name="OrderCollectionView"
+                    ItemsSource="{Binding Orders}"
+                    Margin="16"
+                    SelectionMode="None">
+        
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+        </CollectionView.ItemsLayout>
+
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <VerticalStackLayout Padding="10">
-                    <Label Text="{Binding Id}" FontSize="18" FontAttributes="Bold" />
-                    <Label Text="{Binding OrderDate, StringFormat='Order Date: {0:MM/dd/yyyy}'}" FontSize="14" />
-                    <Label Text="{Binding CustomerDisplay}" FontAttributes="Bold" />
-                    <Label Text="{Binding DeliveryStateDisplay}" FontAttributes="Italic" />
-                </VerticalStackLayout>
+                <Frame BackgroundColor="White"
+                       Padding="10"
+                       HasShadow="False"
+                       BorderColor="#E5E7EB">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="{Binding Id}"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="#7C3AED" />
+
+                        <Label Text="{Binding OrderDate, StringFormat='Order Date: {0:MM/dd/yyyy}'}"
+                               FontSize="14"
+                               TextColor="#6B7280" />
+
+                        <Label Text="{Binding CustomerDisplay}"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="#4B5563" />
+
+                        <Label Text="{Binding DeliveryStateDisplay, StringFormat='Last Delivery State: {0}'}"
+                               FontSize="13"
+                               FontAttributes="Italic"
+                               TextColor="#9CA3AF" />
+                    </VerticalStackLayout>
+                </Frame>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>
 </ContentPage>
-

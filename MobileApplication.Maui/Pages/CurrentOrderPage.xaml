@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:MobileApplication.Maui.Converters"
+             x:Class="MobileApplication.Maui.Pages.CurrentOrderPage"
+             Title="Current Order"
+             BackgroundColor="#F3F4F6">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullToBoolConverter x:Key="NullToBoolConverter" />
+            <converters:NullToInverseBoolConverter x:Key="NullToInverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center">
+
+            <!-- Header -->
+            <Label Text="Current Random Order"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#7C3AED"
+                   HorizontalOptions="Center" />
+
+            <!-- Show order details -->
+            <Frame BackgroundColor="White" CornerRadius="12" Padding="16" HasShadow="True"
+                   IsVisible="{Binding CurrentOrder, Converter={StaticResource NullToBoolConverter}}">
+                <VerticalStackLayout Spacing="12">
+
+                    <Label Text="{Binding CurrentOrder.Id, StringFormat='Order ID: {0}'}"
+                           FontSize="20"
+                           TextColor="#4B5563" />
+
+                    <Label Text="{Binding CurrentOrder.OrderDate, StringFormat='Order Date: {0:MMMM dd, yyyy}'}"
+                           FontSize="18"
+                           TextColor="#4B5563" />
+
+                    <Label Text="{Binding CurrentOrder.CustomerDisplay}"
+                           FontSize="18"
+                           TextColor="#4B5563" />
+
+                    <Label Text="{Binding CurrentOrder.DeliveryStateDisplay}"
+                           FontSize="18"
+                           TextColor="#4B5563" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- If no current order found -->
+            <Label Text="No current order available."
+                   FontSize="18"
+                   TextColor="Gray"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding CurrentOrder, Converter={StaticResource NullToInverseBoolConverter}}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
