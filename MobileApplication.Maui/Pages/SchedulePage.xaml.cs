@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices.Marshalling;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
-using MobileApplication.Maui.ViewModel;
+//using MobileApplication.Maui.ViewModel;
 
 namespace MobileApplication.Maui.Pages;
 
@@ -15,6 +15,6 @@ public partial class SchedulePage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await SchedulePageViewModel.LoadOrder();
+        //await SchedulePageViewModel.LoadOrder();
     }
 }

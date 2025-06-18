@@ -35,5 +35,7 @@
         Route="MainPage" />
     <ShellContent Title ="SchedulePage" Route="SchedulePage"
                   ContentTemplate="{DataTemplate Pages:SchedulePage}" />
+    <ShellContent Title ="WeatherPage" Route="WeatherPage"
+              ContentTemplate="{DataTemplate Pages:WeatherPage}" />
 </Shell>
 
