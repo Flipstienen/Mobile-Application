@@ -5,7 +5,7 @@
              xmlns:converters="clr-namespace:MobileApplication.Maui.Converters"
              x:Class="MobileApplication.Maui.Pages.CurrentOrderPage"
              Title="Current Order"
-             BackgroundColor="#F3F4F6">
+             BackgroundColor="#2C2C2C">
 
     <ContentPage.Resources>
         <ResourceDictionary>

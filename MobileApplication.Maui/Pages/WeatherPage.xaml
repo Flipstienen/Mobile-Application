@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MobileApplication.Maui.Pages.WeatherPage"
     Title="Weather"
-    BackgroundColor="#F3F4F6">
+    BackgroundColor="#2C2C2C">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center">

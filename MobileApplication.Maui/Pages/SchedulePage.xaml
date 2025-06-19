@@ -4,7 +4,7 @@
              xmlns:ViewModel="clr-namespace:MobileApplication.Maui.ViewModel"
              x:Class="MobileApplication.Maui.Pages.SchedulePage"
              Title="Schedule"
-             BackgroundColor="#F3F4F6">
+             BackgroundColor="#2C2C2C">
 
     <ContentPage.BindingContext>
         <ViewModel:SchedulePageViewModel />
