@@ -1,0 +1,33 @@
+using System;
+using System.Globalization;
+using Microsoft.Maui.Controls;
+
+namespace MobileApplication.Maui.Converters
+{
+    public class NullToBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value != null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            // Usually not needed, so throw or return default
+            throw new NotImplementedException();
+        }
+    }
+
+    public class NullToInverseBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value == null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

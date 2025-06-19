@@ -10,7 +10,7 @@ public partial class MainPage : ContentPage
 
     private async void OnCurrentOrderClicked(object sender, EventArgs e)
     {
-        DisplayAlert("Current Order", "Navigating to Current Order", "OK");
+        await Shell.Current.GoToAsync(nameof(CurrentOrderPage));
     }
 
     private async void OnScheduleClicked(object sender, EventArgs e)

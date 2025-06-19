@@ -5,25 +5,77 @@
     x:Class="MobileApplication.Maui.Pages.MainPage"
     BackgroundColor="#2C2C2C">
 
-    <ScrollView >
-        <VerticalStackLayout Padding="20" Spacing="20">
-            <Frame Padding="0" HasShadow="False" CornerRadius="8" BorderColor="White">
-                <Grid Padding="10" ColumnDefinitions="Auto,*">
-                    <Image Source="search_icon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="24">
+
+            <!-- 🔍 Modern Search Bar -->
+            <Frame Padding="0" HasShadow="True" CornerRadius="12" BorderColor="#E5E7EB" BackgroundColor="White">
+                <Grid Padding="12" ColumnDefinitions="Auto,*">
+                    <Image Source="search_icon.png"
+                           WidthRequest="20" HeightRequest="20"
+                           VerticalOptions="Center"/>
                     <Entry x:Name="searchEntry"
-                        Placeholder="Search products or info"
-                        Grid.Column="1"
-                        BackgroundColor="Transparent"/>
+                           Grid.Column="1"
+                           Placeholder="Search products or info"
+                           BackgroundColor="Transparent"
+                           TextColor="#111827"
+                           PlaceholderColor="#9CA3AF" />
                 </Grid>
             </Frame>
 
-            <!-- Deze moeten nog worden aangepast naar .svg ofzo, ik heb er maar even 4 emoji's gepakt via chatgpt -->
-            <VerticalStackLayout Spacing="20" Padding="2"  HorizontalOptions="Center">
-                <Button Text="📦 Current Order" Style="{StaticResource MenuButtonStyle}" Clicked="OnCurrentOrderClicked" WidthRequest="325" HeightRequest="100"/>
-                <Button Text="📋 Schedule" Style="{StaticResource MenuButtonStyle}" Clicked="OnScheduleClicked" WidthRequest="325" HeightRequest="100"/>
-                <Button Text="📍 Tracking" Style="{StaticResource MenuButtonStyle}" Clicked="OnTrackingClicked" WidthRequest="325" HeightRequest="100"/>
-                <Button Text="🌧️ Weather" Style="{StaticResource MenuButtonStyle}" Clicked="OnWeatherClicked" WidthRequest="325" HeightRequest="100"/>
+            <!-- 📦 Menu Buttons with Shadow using Frames -->
+            <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+
+                <Frame HasShadow="True" CornerRadius="12" Padding="0" BackgroundColor="Transparent">
+                    <Button Text="📦 Current Order"
+                            Clicked="OnCurrentOrderClicked"
+                            WidthRequest="325"
+                            HeightRequest="80"
+                            BackgroundColor="White"
+                            TextColor="#7C3AED"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            CornerRadius="12"/>
+                </Frame>
+
+                <Frame HasShadow="True" CornerRadius="12" Padding="0" BackgroundColor="Transparent">
+                    <Button Text="📋 Schedule"
+                            Clicked="OnScheduleClicked"
+                            WidthRequest="325"
+                            HeightRequest="80"
+                            BackgroundColor="White"
+                            TextColor="#7C3AED"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            CornerRadius="12"/>
+                </Frame>
+
+                <Frame HasShadow="True" CornerRadius="12" Padding="0" BackgroundColor="Transparent">
+                    <Button Text="📍 Tracking"
+                            Clicked="OnTrackingClicked"
+                            WidthRequest="325"
+                            HeightRequest="80"
+                            BackgroundColor="White"
+                            TextColor="#7C3AED"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            CornerRadius="12"/>
+                </Frame>
+
+                <Frame HasShadow="True" CornerRadius="12" Padding="0" BackgroundColor="Transparent">
+                    <Button Text="🌧️ Weather"
+                            Clicked="OnWeatherClicked"
+                            WidthRequest="325"
+                            HeightRequest="80"
+                            BackgroundColor="White"
+                            TextColor="#7C3AED"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            CornerRadius="12"/>
+                </Frame>
+
             </VerticalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
