@@ -18,7 +18,7 @@
         <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center">
 
             <!-- Header -->
-            <Label Text="Current Random Order"
+            <Label Text="Current Order"
                    FontSize="28"
                    FontAttributes="Bold"
                    TextColor="#7C3AED"
