@@ -6,73 +6,73 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
+using MobileApplication.Maui.Creator;
 
 namespace MobileApplication.Maui.ViewModel
 {
     public partial class CurrentOrderPageViewModel : ObservableObject
     {
         [ObservableProperty]
-        private OrderDisplayItem currentOrder;
+        private OrderDisplayItem currentOrderDisplay;
+        private LastOrder lastOrder = new LastOrder();
+        private CreateOrders createOrders = new CreateOrders();
+        private CurrentOrder currentOrderCreate = new CurrentOrder();
 
         public CurrentOrderPageViewModel()
         {
         }
-        
-        public async Task LoadRandomOrderAsync()
+
+        public async Task LoadCurrentOrderAsync()
         {
-            var fullOrder = new Order();
+            var currentOrder = new Order();
             string apiKey = EnvHelper.Instance.GetEnvironmentVariable("API_KEY", "");
+            var DeliveryServices = await ApiHelper.Instance.GetAsync<DeliveryService>($"/api/DeliveryServices/{apiKey}");
 
-            var deliveryService = await ApiHelper.Instance.GetAsync<DeliveryService>($"/api/DeliveryServices/{apiKey}");
-
-            var orderList = await ApiHelper.Instance.GetAsync<List<Order>>($"/api/Order?deliveryServiceId={deliveryService.id}");
-
-            if (orderList == null || orderList.Count == 0)
+            if (Preferences.ContainsKey("Current Order") == false || PreferencesCheck() == true)
             {
-                Console.WriteLine($"There are no orders");
-                CurrentOrder = null;
-                return;
-            }
-            
-            try
-            {
-                fullOrder = JsonSerializer.Deserialize<Order>(Preferences.Get("Current Order", ""));
-            } 
-            
-            catch
-            {
-                var recentOrders = orderList.TakeLast(15).ToList();
-
-                var random = new Random();
-                var randomOrder = recentOrders[random.Next(recentOrders.Count)];
-
-                fullOrder = await ApiHelper.Instance.GetAsync<Order>($"/api/Order/{randomOrder.Id}");
-                if (fullOrder == null)
+                if (Preferences.ContainsKey("LastOrder") == false)
                 {
-                    Console.WriteLine("notting in the order.");
-                    CurrentOrder = null;
-                    return;
+                    await createOrders.CreateNewOrderAsync();
+                    await lastOrder.CreateLastOrder(DeliveryServices.id);
                 }
             }
 
-            Preferences.Set("Current Order", JsonSerializer.Serialize(fullOrder));
-
-
-            CurrentOrder = new OrderDisplayItem
+            if (Preferences.ContainsKey("Current Order"))
             {
-                Id = fullOrder.Id,
-                OrderDate = fullOrder.OrderDate,
-                CustomerDisplay = $"Customer: {fullOrder.Customer?.Name ?? "N/A"}, Address: {fullOrder.Customer?.Address ?? "N/A"}",
-                DeliveryStateDisplay = $"Last Delivery State: {fullOrder.DeliveryStates.LastOrDefault().State}"
-            };
-        }
-    }
+                currentOrder = JsonSerializer.Deserialize<Order>(Preferences.Get("Current Order", ""));
+            }
 
-    public class OrderDisplayItem
-    {
-        public int Id { get; set; }
-        public DateTime OrderDate { get; set; }
-        public string CustomerDisplay { get; set; }
-        public string DeliveryStateDisplay { get; set; }
+            else
+            {
+                await currentOrderCreate.CreateCurrentOrder();
+                currentOrder = JsonSerializer.Deserialize<Order>(Preferences.Get("Current Order", ""));
+            }
+                CurrentOrderDisplay = new OrderDisplayItem
+                {
+                    Id = currentOrder.Id,
+                    OrderDate = currentOrder.OrderDate,
+                    CustomerDisplay = $"Customer: {currentOrder.Customer?.Name ?? "N/A"}, Address: {currentOrder.Customer?.Address ?? "N/A"}",
+                    DeliveryStateDisplay = $"Last Delivery State: {currentOrder.DeliveryStates.LastOrDefault().State}"
+                };
+        }
+
+    private bool PreferencesCheck()
+        {
+            var currentOrder = JsonSerializer.Deserialize<Order>(Preferences.Get("Current Order", ""));
+            if (currentOrder.DeliveryStates.LastOrDefault().State >= 3)
+            {
+                Preferences.Remove("Current Order");
+                return true;
+            }
+            return false;
+        }
+
+        public class OrderDisplayItem
+        {
+            public int Id { get; set; }
+            public DateTime OrderDate { get; set; }
+            public string CustomerDisplay { get; set; }
+            public string DeliveryStateDisplay { get; set; }
+        }
     }
 }

@@ -26,22 +26,22 @@
 
             <!-- Show order details -->
             <Frame BackgroundColor="White" CornerRadius="12" Padding="16" HasShadow="True"
-                   IsVisible="{Binding CurrentOrder, Converter={StaticResource NullToBoolConverter}}">
+                   IsVisible="{Binding CurrentOrderDisplay, Converter={StaticResource NullToBoolConverter}}">
                 <VerticalStackLayout Spacing="12">
 
-                    <Label Text="{Binding CurrentOrder.Id, StringFormat='Order ID: {0}'}"
+                    <Label Text="{Binding CurrentOrderDisplay.Id, StringFormat='Order ID: {0}'}"
                            FontSize="20"
                            TextColor="#4B5563" />
 
-                    <Label Text="{Binding CurrentOrder.OrderDate, StringFormat='Order Date: {0:MMMM dd, yyyy}'}"
+                    <Label Text="{Binding CurrentOrderDisplay.OrderDate, StringFormat='Order Date: {0:MMMM dd, yyyy}'}"
                            FontSize="18"
                            TextColor="#4B5563" />
 
-                    <Label Text="{Binding CurrentOrder.CustomerDisplay}"
+                    <Label Text="{Binding CurrentOrderDisplay.CustomerDisplay}"
                            FontSize="18"
                            TextColor="#4B5563" />
 
-                    <Label Text="{Binding CurrentOrder.DeliveryStateDisplay}"
+                    <Label Text="{Binding CurrentOrderDisplay.DeliveryStateDisplay}"
                            FontSize="18"
                            TextColor="#4B5563" />
 
@@ -53,7 +53,7 @@
                    FontSize="18"
                    TextColor="Gray"
                    HorizontalOptions="Center"
-                   IsVisible="{Binding CurrentOrder, Converter={StaticResource NullToInverseBoolConverter}}" />
+                   IsVisible="{Binding CurrentOrderDisplay, Converter={StaticResource NullToInverseBoolConverter}}" />
 
         </VerticalStackLayout>
     </ScrollView>

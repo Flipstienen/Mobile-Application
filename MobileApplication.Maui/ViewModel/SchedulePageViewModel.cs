@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.Text.Json;
+
 using CommunityToolkit.Mvvm.ComponentModel;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
+using MobileApplication.Maui.Creator;
 
 namespace MobileApplication.Maui.ViewModel
 {
@@ -9,6 +12,9 @@ namespace MobileApplication.Maui.ViewModel
     {
         [ObservableProperty]
         private ObservableCollection<OrderDisplayItem> orders = new();
+        private LastOrder lastOrder = new LastOrder();
+
+        private CreateOrders createOrders = new CreateOrders();
         public SchedulePageViewModel()
         {
 
@@ -16,6 +22,11 @@ namespace MobileApplication.Maui.ViewModel
 
         public async Task LoadOrdersAsync()
         {
+            var fullOrder = new List<Order>();
+            if (Preferences.ContainsKey("LastOrder") == true)
+            {
+                fullOrder = JsonSerializer.Deserialize<List<Order>>(Preferences.Get("LastOrder", ""));
+            }
             string apiKey = EnvHelper.Instance.GetEnvironmentVariable("API_KEY", "");
             var DeliveryServices = await ApiHelper.Instance.GetAsync<DeliveryService>($"/api/DeliveryServices/{apiKey}");
 
@@ -28,91 +39,48 @@ namespace MobileApplication.Maui.ViewModel
             try
             {
                 var lastDate = Preferences.Get("LastUpdateDate", "");
-                var orderlist = await ApiHelper.Instance.GetAsync<List<Order>>($"/api/Order?deliveryServiceId={DeliveryServices.id}");
+                var orderlist = await ApiHelper.Instance.GetAsync<List<Order>>($"/api/Order");
+
                 if (orderlist == null || !orderlist.Any())
                 {
-                    await CreateNewOrderEmergencyAsync();
+                    await createOrders.CreateNewOrderAsync();
                     Preferences.Set("LastUpdateDate", DateTime.Today.ToString("yyyy-MM-dd"));
+                    if (Preferences.ContainsKey("LastOrder"))
+                    {
+                        Preferences.Remove("LastOrder");
+                    }
+                    fullOrder = null;
                 }
 
                 else if (!DateTime.TryParse(lastDate, out DateTime parsedLastDate) || parsedLastDate.Date < DateTime.Today)
                 {
-                    await CreateNewOrderAsync();
+                    await createOrders.CreateNewOrderAsync();
                     Preferences.Set("LastUpdateDate", DateTime.Today.ToString("yyyy-MM-dd"));
-                }
-
-                var fullLastOrders = new List<Order>();
-
-                orderlist = await ApiHelper.Instance.GetAsync<List<Order>>($"/api/Order?deliveryServiceId={DeliveryServices.id}");
-
-                if (orderlist != null)
-                {
-                    foreach (var item in orderlist.TakeLast(15))
+                    if (Preferences.ContainsKey("LastOrder"))
                     {
-                        fullLastOrders.Add(await ApiHelper.Instance.GetAsync<Order>($"/api/Order/{item.Id}"));
+                        Preferences.Remove("LastOrder");
                     }
-                    Orders = new ObservableCollection<OrderDisplayItem>(fullLastOrders.Select(o => new OrderDisplayItem
-                    {
-                        Id = o.Id,
-                        OrderDate = o.OrderDate,
-                        CustomerDisplay = $"Customer: {o.Customer?.Name ?? "N/A"}, Address: {o.Customer?.Address ?? "N/A"}",
-                        DeliveryStateDisplay = $"Last Delivery State: {o.DeliveryStates.LastOrDefault().State}"
-                    }));
+                    fullOrder = null;
                 }
 
-
-                else
+                if (fullOrder == null)
                 {
-                    Console.WriteLine("Order details not found.");
+                    await lastOrder.CreateLastOrder(DeliveryServices.id);
+                    fullOrder = JsonSerializer.Deserialize<List<Order>>(Preferences.Get("LastOrder", "")) ?? new List<Order>();
                 }
+
+                Orders = new ObservableCollection<OrderDisplayItem>(fullOrder.Select(o => new OrderDisplayItem
+                {
+                    Id = o.Id,
+                    OrderDate = o.OrderDate,
+                    CustomerDisplay = $"Customer: {o.Customer?.Name ?? "N/A"}, Address: {o.Customer?.Address ?? "N/A"}",
+                    DeliveryStateDisplay = $"Last Delivery State: {o.DeliveryStates.LastOrDefault().State}"
+                }));
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"API Error: {ex.Message}");
             }
-        }
-
-        private async Task CreateNewOrderAsync()
-        {
-            try
-            {
-                {
-                    string apiKey = EnvHelper.Instance.GetEnvironmentVariable("API_KEY", "");
-
-                    var newOrder = new Order
-                    {
-                        OrderDate = DateTime.UtcNow,
-                        CustomerId = 1,
-                    };
-
-                    await ApiHelper.Instance.CreateOrderAsync<Order>(newOrder);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error", ex.Message, "OK");
-            }
-        }
-
-        private async Task CreateNewOrderEmergencyAsync()
-        {
-            try
-            {
-                for (int i = 0; i < 15; i++)
-                {
-                    var newOrder = new Order
-                    {
-                        OrderDate = DateTime.UtcNow,
-                        CustomerId = 1,
-                    };
-                    await ApiHelper.Instance.CreateOrderAsync<Order>(newOrder);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error", ex.Message, "OK");
-            }
-
         }
     }
 }

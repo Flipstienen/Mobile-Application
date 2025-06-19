@@ -18,15 +18,9 @@ public partial class CurrentOrderPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        Console.WriteLine("DEBUG: OnAppearing called");
         if (BindingContext is CurrentOrderPageViewModel viewModel)
         {
-            Console.WriteLine("DEBUG: Found ViewModel in BindingContext");
-            await viewModel.LoadRandomOrderAsync();
-        }
-        else
-        {
-            Console.WriteLine("DEBUG: BindingContext is not CurrentOrderPageViewModel");
+            await viewModel.LoadCurrentOrderAsync();
         }
     }
 
