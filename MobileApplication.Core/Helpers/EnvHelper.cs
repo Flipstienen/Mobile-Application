@@ -1,5 +1,7 @@
-using System.Reflection;
 using DotNetEnv;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace MobileApplication.Core.Helpers
 {
@@ -38,6 +40,7 @@ namespace MobileApplication.Core.Helpers
                 Console.WriteLine($"Key not found: {key}");
                 return defaultValue!;
             }
+            Console.WriteLine("key:" ,value);
             return value;
         }
     }

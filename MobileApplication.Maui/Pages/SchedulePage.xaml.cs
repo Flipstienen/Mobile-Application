@@ -1,3 +1,6 @@
+using System.Runtime.InteropServices.Marshalling;
+using MobileApplication.Core.Helpers;
+using MobileApplication.Core.Model;
 using MobileApplication.Maui.ViewModel;
 
 namespace MobileApplication.Maui.Pages;

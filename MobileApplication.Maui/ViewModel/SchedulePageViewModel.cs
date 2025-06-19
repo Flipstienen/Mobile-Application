@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.ComponentModel;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
+using System.Collections.ObjectModel;
+using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MobileApplication.Maui.ViewModel
 {
@@ -32,7 +34,6 @@ namespace MobileApplication.Maui.ViewModel
                 if (orderlist == null || !orderlist.Any())
                 {
                     await CreateNewOrderEmergencyAsync();
-                    Preferences.Set("LastUpdateDate", DateTime.Today.ToString("yyyy-MM-dd"));
                 }
 
                 else if (!DateTime.TryParse(lastDate, out DateTime parsedLastDate) || parsedLastDate.Date < DateTime.Today)
@@ -42,7 +43,7 @@ namespace MobileApplication.Maui.ViewModel
                 }
 
                 var fullLastOrders = new List<Order>();
-
+                
                 orderlist = await ApiHelper.Instance.GetAsync<List<Order>>($"/api/Order?deliveryServiceId={DeliveryServices.id}");
 
                 if (orderlist != null)
@@ -79,13 +80,13 @@ namespace MobileApplication.Maui.ViewModel
                 {
                     string apiKey = EnvHelper.Instance.GetEnvironmentVariable("API_KEY", "");
 
-                    var newOrder = new Order
-                    {
-                        OrderDate = DateTime.UtcNow,
-                        CustomerId = 1,
-                    };
+                        var newOrder = new Order
+                        {
+                            OrderDate = DateTime.UtcNow,
+                            CustomerId = 1,
+                        };
 
-                    await ApiHelper.Instance.CreateOrderAsync<Order>(newOrder);
+                        await ApiHelper.Instance.CreateOrderAsync<Order>(newOrder);
                 }
             }
             catch (Exception ex)
@@ -98,6 +99,8 @@ namespace MobileApplication.Maui.ViewModel
         {
             try
             {
+                string apiKey = EnvHelper.Instance.GetEnvironmentVariable("API_KEY", "");
+                var DeliveryServices = await ApiHelper.Instance.GetAsync<DeliveryService>($"/api/DeliveryServices/{apiKey}");
                 for (int i = 0; i < 15; i++)
                 {
                     var newOrder = new Order
@@ -107,6 +110,8 @@ namespace MobileApplication.Maui.ViewModel
                     };
                     await ApiHelper.Instance.CreateOrderAsync<Order>(newOrder);
                 }
+                Preferences.Set("LastUpdateDate", DateTime.Today.ToString("yyyy-MM-dd"));
+
             }
             catch (Exception ex)
             {
