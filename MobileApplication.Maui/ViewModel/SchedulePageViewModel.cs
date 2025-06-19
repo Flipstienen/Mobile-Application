@@ -44,22 +44,12 @@ namespace MobileApplication.Maui.ViewModel
                 if (orderlist == null || !orderlist.Any())
                 {
                     await createOrders.CreateNewOrderAsync();
-                    Preferences.Set("LastUpdateDate", DateTime.Today.ToString("yyyy-MM-dd"));
-                    if (Preferences.ContainsKey("LastOrder"))
-                    {
-                        Preferences.Remove("LastOrder");
-                    }
                     fullOrder = null;
                 }
 
                 else if (!DateTime.TryParse(lastDate, out DateTime parsedLastDate) || parsedLastDate.Date < DateTime.Today)
                 {
                     await createOrders.CreateNewOrderAsync();
-                    Preferences.Set("LastUpdateDate", DateTime.Today.ToString("yyyy-MM-dd"));
-                    if (Preferences.ContainsKey("LastOrder"))
-                    {
-                        Preferences.Remove("LastOrder");
-                    }
                     fullOrder = null;
                 }
 
@@ -69,12 +59,12 @@ namespace MobileApplication.Maui.ViewModel
                     fullOrder = JsonSerializer.Deserialize<List<Order>>(Preferences.Get("LastOrder", "")) ?? new List<Order>();
                 }
 
-                Orders = new ObservableCollection<OrderDisplayItem>(fullOrder.Select(o => new OrderDisplayItem
+                Orders = new ObservableCollection<OrderDisplayItem>(fullOrder.OrderBy(o => o.Id).Select(o => new OrderDisplayItem
                 {
                     Id = o.Id,
                     OrderDate = o.OrderDate,
                     CustomerDisplay = $"Customer: {o.Customer?.Name ?? "N/A"}, Address: {o.Customer?.Address ?? "N/A"}",
-                    DeliveryStateDisplay = $"Last Delivery State: {o.DeliveryStates.LastOrDefault().State}"
+                    DeliveryStateDisplay = $"{o.DeliveryStates.LastOrDefault().State}"
                 }));
             }
             catch (Exception ex)

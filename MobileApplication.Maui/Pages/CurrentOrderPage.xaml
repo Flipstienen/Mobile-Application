@@ -33,7 +33,7 @@
                            FontSize="20"
                            TextColor="#4B5563" />
 
-                    <Label Text="{Binding CurrentOrderDisplay.OrderDate, StringFormat='Order Date: {0:MMMM dd, yyyy}'}"
+                    <Label Text="{Binding CurrentOrderDisplay.OrderDate, StringFormat='Delivery Date: {0:MMMM dd, yyyy}'}"
                            FontSize="18"
                            TextColor="#4B5563" />
 

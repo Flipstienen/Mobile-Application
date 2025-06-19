@@ -31,7 +31,7 @@
                                FontAttributes="Bold"
                                TextColor="#7C3AED" />
 
-                        <Label Text="{Binding OrderDate, StringFormat='Order Date: {0:MM/dd/yyyy}'}"
+                        <Label Text="{Binding OrderDate, StringFormat='Delivery Date: {0:MM/dd/yyyy}'}"
                                FontSize="14"
                                TextColor="#6B7280" />
 
