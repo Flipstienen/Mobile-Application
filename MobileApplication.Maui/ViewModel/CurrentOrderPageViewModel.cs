@@ -36,6 +36,14 @@ namespace MobileApplication.Maui.ViewModel
                     await createOrders.CreateNewOrderAsync();
                     await lastOrder.CreateLastOrder(DeliveryServices.id);
                 }
+
+                var fullOrder = JsonSerializer.Deserialize<List<Order>>(Preferences.Get("LastOrder", ""));
+                var count = fullOrder.Where(o => o.DeliveryStates.LastOrDefault().State >= 3).Count();
+                if (count == 15)
+                {
+                    await createOrders.CreateNewOrderAsync();
+                    await lastOrder.CreateLastOrder(DeliveryServices.id);
+                }
             }
 
             else if (!DateTime.TryParse(lastDate, out DateTime parsedLastDate) || parsedLastDate.Date < DateTime.Today)

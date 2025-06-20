@@ -18,11 +18,6 @@ public partial class MainPage : ContentPage
         await Shell.Current.GoToAsync(nameof(SchedulePage));
     }
 
-    private async void OnTrackingClicked(object sender, EventArgs e)
-    {
-        DisplayAlert("Tracking", "Navigating to Tracking", "OK");
-    }
-
     private async void OnWeatherClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync(nameof(WeatherPage));

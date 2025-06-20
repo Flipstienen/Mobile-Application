@@ -33,10 +33,4 @@
         Title="MainPage"
         ContentTemplate="{DataTemplate Pages:MainPage}"
         Route="MainPage" />
-    <ShellContent Title ="Schedule" Route="SchedulePage"
-                  ContentTemplate="{DataTemplate Pages:SchedulePage}"/>
-    <ShellContent Title ="Weather" Route="WeatherPage"
-              ContentTemplate="{DataTemplate Pages:WeatherPage}"/>
-    <ShellContent Title="Current Order" Route="CurrentOrderPage" 
-                  ContentTemplate="{DataTemplate Pages:CurrentOrderPage}"/>
 </Shell>

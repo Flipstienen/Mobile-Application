@@ -39,9 +39,11 @@
                            FontSize="18"
                            TextColor="#FFF5F3" />
 
-                    <Label Text="{Binding CurrentOrderDisplay.DeliveryStateDisplay}"
+                    <Button Text="{Binding CurrentOrderDisplay.DeliveryStateDisplay}"
                            FontSize="18"
-                           TextColor="#FFF5F3" />
+                           Clicked="OnClickComplete"
+                           TextColor="#FFF5F3"
+                            />
 
                 </VerticalStackLayout>
             </Frame>
