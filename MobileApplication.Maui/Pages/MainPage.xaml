@@ -8,8 +8,7 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="24">
 
-            <!-- 🔍 Modern Search Bar -->
-            <Frame Padding="0" HasShadow="True" CornerRadius="12" BorderColor="#E5E7EB" BackgroundColor="White">
+            <Frame Padding="0" HasShadow="True" CornerRadius="12" BorderColor="#E5E7EB" BackgroundColor="Black">
                 <Grid Padding="12" ColumnDefinitions="Auto,*">
                     <Image Source="search_icon.png"
                            WidthRequest="20" HeightRequest="20"
@@ -18,12 +17,11 @@
                            Grid.Column="1"
                            Placeholder="Search products or info"
                            BackgroundColor="Transparent"
-                           TextColor="#111827"
+                           TextColor="White"
                            PlaceholderColor="#9CA3AF" />
                 </Grid>
             </Frame>
 
-            <!-- 📦 Menu Buttons with Shadow using Frames -->
             <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
 
                 <Frame HasShadow="True" CornerRadius="12" Padding="0" BackgroundColor="Transparent">
@@ -31,8 +29,8 @@
                             Clicked="OnCurrentOrderClicked"
                             WidthRequest="325"
                             HeightRequest="80"
-                            BackgroundColor="White"
-                            TextColor="#7C3AED"
+                            BackgroundColor="Black"
+                            TextColor="White"
                             FontSize="18"
                             FontAttributes="Bold"
                             CornerRadius="12"/>
@@ -43,8 +41,8 @@
                             Clicked="OnScheduleClicked"
                             WidthRequest="325"
                             HeightRequest="80"
-                            BackgroundColor="White"
-                            TextColor="#7C3AED"
+                            BackgroundColor="Black"
+                            TextColor="White"
                             FontSize="18"
                             FontAttributes="Bold"
                             CornerRadius="12"/>
@@ -55,8 +53,8 @@
                             Clicked="OnTrackingClicked"
                             WidthRequest="325"
                             HeightRequest="80"
-                            BackgroundColor="White"
-                            TextColor="#7C3AED"
+                            BackgroundColor="Black"
+                            TextColor="White"
                             FontSize="18"
                             FontAttributes="Bold"
                             CornerRadius="12"/>
@@ -67,8 +65,8 @@
                             Clicked="OnWeatherClicked"
                             WidthRequest="325"
                             HeightRequest="80"
-                            BackgroundColor="White"
-                            TextColor="#7C3AED"
+                            BackgroundColor="Black"
+                            TextColor="White"
                             FontSize="18"
                             FontAttributes="Bold"
                             CornerRadius="12"/>

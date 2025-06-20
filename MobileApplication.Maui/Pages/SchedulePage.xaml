@@ -21,7 +21,7 @@
 
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <Frame BackgroundColor="White"
+                <Frame BackgroundColor="Black"
                        Padding="10"
                        HasShadow="False"
                        BorderColor="#E5E7EB">
@@ -29,21 +29,21 @@
                         <Label Text="{Binding Id}"
                                FontSize="20"
                                FontAttributes="Bold"
-                               TextColor="#7C3AED" />
+                               TextColor="White" />
 
                         <Label Text="{Binding OrderDate, StringFormat='Delivery Date: {0:MM/dd/yyyy}'}"
                                FontSize="14"
-                               TextColor="#6B7280" />
+                               TextColor="#F1F2F3" />
 
                         <Label Text="{Binding CustomerDisplay}"
                                FontSize="15"
                                FontAttributes="Bold"
-                               TextColor="#4B5563" />
+                               TextColor="#F1F2F3" />
 
                         <Label Text="{Binding DeliveryStateDisplay, StringFormat='Last Delivery State: {0}'}"
                                FontSize="13"
                                FontAttributes="Italic"
-                               TextColor="#9CA3AF" />
+                               TextColor="#F1F2F3" />
                     </VerticalStackLayout>
                 </Frame>
             </DataTemplate>

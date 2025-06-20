@@ -17,38 +17,35 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center">
 
-            <!-- Header -->
             <Label Text="Current Order"
                    FontSize="28"
                    FontAttributes="Bold"
                    TextColor="White"
                    HorizontalOptions="Center" />
 
-            <!-- Show order details -->
-            <Frame BackgroundColor="White" CornerRadius="12" Padding="16" HasShadow="True"
+            <Frame BackgroundColor="Black" CornerRadius="12" Padding="16" HasShadow="True"
                    IsVisible="{Binding CurrentOrderDisplay, Converter={StaticResource NullToBoolConverter}}">
                 <VerticalStackLayout Spacing="12">
 
                     <Label Text="{Binding CurrentOrderDisplay.Id, StringFormat='Order ID: {0}'}"
                            FontSize="20"
-                           TextColor="#4B5563" />
+                           TextColor="#FFF5F3" />
 
                     <Label Text="{Binding CurrentOrderDisplay.OrderDate, StringFormat='Delivery Date: {0:MMMM dd, yyyy}'}"
                            FontSize="18"
-                           TextColor="#4B5563" />
+                           TextColor="#FFF5F3" />
 
                     <Label Text="{Binding CurrentOrderDisplay.CustomerDisplay}"
                            FontSize="18"
-                           TextColor="#4B5563" />
+                           TextColor="#FFF5F3" />
 
                     <Label Text="{Binding CurrentOrderDisplay.DeliveryStateDisplay}"
                            FontSize="18"
-                           TextColor="#4B5563" />
+                           TextColor="#FFF5F3" />
 
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- If no current order found -->
             <Label Text="No current order available."
                    FontSize="18"
                    TextColor="Gray"
