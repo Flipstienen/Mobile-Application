@@ -7,6 +7,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
 using MobileApplication.Maui.Creator;
+using Plugin.LocalNotification;
+
 
 namespace MobileApplication.Maui.ViewModel
 {
@@ -69,6 +71,21 @@ namespace MobileApplication.Maui.ViewModel
                     CustomerDisplay = $"Customer: {currentOrder.Customer?.Name ?? "N/A"}, Address: {currentOrder.Customer?.Address ?? "N/A"}",
                     DeliveryStateDisplay = $"Last Delivery State: {currentOrder.DeliveryStates.LastOrDefault().State}"
                 };
+
+            var notification = new NotificationRequest
+            {
+                NotificationId = 1001,
+                Title = "New Order Created",
+                Description = $"Order ID: {currentOrder.Id}",
+                Schedule = new NotificationRequestSchedule
+                {
+                    NotifyTime = DateTime.Now.AddSeconds(1)
+                },
+                CategoryType = NotificationCategoryType.Reminder,
+                ReturningData = "current_order"
+            };
+
+            await LocalNotificationCenter.Current.Show(notification);
         }
 
     private bool PreferencesCheck()
