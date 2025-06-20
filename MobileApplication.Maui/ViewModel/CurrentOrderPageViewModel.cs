@@ -24,6 +24,7 @@ namespace MobileApplication.Maui.ViewModel
 
         public async Task LoadCurrentOrderAsync()
         {
+            var lastDate = Preferences.Get("LastUpdateDate", "");
             var currentOrder = new Order();
             string apiKey = EnvHelper.Instance.GetEnvironmentVariable("API_KEY", "");
             var DeliveryServices = await ApiHelper.Instance.GetAsync<DeliveryService>($"/api/DeliveryServices/{apiKey}");
@@ -36,6 +37,12 @@ namespace MobileApplication.Maui.ViewModel
                     await lastOrder.CreateLastOrder(DeliveryServices.id);
                 }
             }
+
+            else if (!DateTime.TryParse(lastDate, out DateTime parsedLastDate) || parsedLastDate.Date < DateTime.Today)
+            {
+                await createOrders.CreateNewOrderAsync();
+            }
+
 
             if (Preferences.ContainsKey("Current Order"))
             {
