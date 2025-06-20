@@ -21,7 +21,7 @@
             <Label Text="Current Order"
                    FontSize="28"
                    FontAttributes="Bold"
-                   TextColor="#7C3AED"
+                   TextColor="White"
                    HorizontalOptions="Center" />
 
             <!-- Show order details -->

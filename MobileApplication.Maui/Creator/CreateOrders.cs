@@ -24,9 +24,15 @@ namespace MobileApplication.Maui.Creator
                     await ApiHelper.Instance.CreateOrderAsync<Order>(newOrder);
                 }
                 Preferences.Set("LastUpdateDate", DateTime.Today.ToString("yyyy-MM-dd"));
+                
                 if (Preferences.ContainsKey("LastOrder"))
                 {
                     Preferences.Remove("LastOrder");
+                }
+
+                if (Preferences.ContainsKey("Current Order"))
+                {
+                    Preferences.Remove("Current Order");
                 }
             }
             catch (Exception ex)
