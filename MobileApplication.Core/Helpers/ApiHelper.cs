@@ -1,11 +1,12 @@
 using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
+using CommunityToolkit.Mvvm.ComponentModel;
+using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
 using Newtonsoft.Json;
-using Sprache;
 
 namespace MobileApplication.Core.Helpers;
 
@@ -55,7 +56,7 @@ public sealed class ApiHelper
         return JsonConvert.DeserializeObject<T>(responseJson);
     }
 
-    public async Task<T> CreateOrderAsync<T>(object data)
+    public async Task<int> CreateOrderAsync<T>(object data)
     {
         string jsonData = JsonConvert.SerializeObject(data);
         var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -71,7 +72,7 @@ public sealed class ApiHelper
         var result = await _httpClient.PostAsync($"{_baseUrl}/api/DeliveryStates/StartDelivery?OrderId={orderId}", null);
 
         string resultJson = await result.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<T>(responseJson);
+        return orderId;
     }
 
 }

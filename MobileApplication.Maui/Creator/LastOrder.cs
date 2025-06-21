@@ -14,31 +14,24 @@ namespace MobileApplication.Maui.Creator
         public async Task CreateLastOrder(int deliveryServiceId)
         {
             var fullOrder = new List<Order>();
-            var orderlist = await ApiHelper.Instance.GetAsync<List<Order>>("/api/Order");
+            List<int> orderlist = JsonSerializer.Deserialize<List<int>>(Preferences.Get("Orders",""));
 
             if (orderlist != null)
             {
-                int orders = orderlist.Count();
-                while (fullOrder.Count() != 15)
+                
+                fullOrder = new List<Order>();
+                foreach(var orders in orderlist)
                 {
-                    fullOrder = new List<Order>();
-                    for (int i = 0; orders >= 1; orders -= 1)
+                    var order = await ApiHelper.Instance.GetAsync<Order>($"/api/Order/{orders}");
+                    if (order.DeliveryStates.Count() != 0)
                     {
-                        var order = await ApiHelper.Instance.GetAsync<Order>($"/api/Order/{orders}");
-                        if (order.DeliveryStates.Count() != 0)
+                        if (order.DeliveryStates.LastOrDefault().DeliveryServiceId == deliveryServiceId)
                         {
-                            if (order.DeliveryStates.LastOrDefault().DeliveryServiceId == deliveryServiceId)
-                            {
                                 fullOrder.Add(order);
-                            }
-                            if (fullOrder.Count() == 15)
-                            {
-                                Preferences.Set("LastOrder", JsonSerializer.Serialize(fullOrder));
-                                break;
-                            }
                         }
                     }
                 }
+                Preferences.Set("LastOrder", JsonSerializer.Serialize(fullOrder));
             }
         }
     }

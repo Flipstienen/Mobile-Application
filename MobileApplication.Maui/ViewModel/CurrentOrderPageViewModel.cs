@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Android.App.Admin;
 using CommunityToolkit.Mvvm.ComponentModel;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
@@ -38,11 +39,13 @@ namespace MobileApplication.Maui.ViewModel
                 }
 
                 var fullOrder = JsonSerializer.Deserialize<List<Order>>(Preferences.Get("LastOrder", ""));
-                var count = fullOrder.Where(o => o.DeliveryStates.LastOrDefault().State >= 3).Count();
-                if (count == 15)
+                int count = fullOrder.Where(o => o.DeliveryStates.LastOrDefault().State >= 3).Count();
+                int all = fullOrder.Count();
+                if (count == all)
                 {
                     await createOrders.CreateNewOrderAsync();
                     await lastOrder.CreateLastOrder(DeliveryServices.id);
+                    Preferences.Set("Completed", "all orders completed");
                 }
             }
 

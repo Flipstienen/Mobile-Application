@@ -39,15 +39,24 @@ namespace MobileApplication.Maui.ViewModel
             try
             {
                 var lastDate = Preferences.Get("LastUpdateDate", "");
-                var orderlist = await ApiHelper.Instance.GetAsync<List<Order>>($"/api/Order");
 
-                if (orderlist == null || !orderlist.Any())
+                if (Preferences.ContainsKey("Orders") == false || Preferences.Get("Orders", "") == "")
                 {
                     await createOrders.CreateNewOrderAsync();
-                    fullOrder = null;
                 }
+                else
+                    try
+                    {
+                        List<int> orderList = JsonSerializer.Deserialize<List<int>>(Preferences.Get("Orders", "")) ?? new List<int>();
+                        await ApiHelper.Instance.GetAsync<Order>($"/api/order/{orderList.FirstOrDefault()}");
+                    }
 
-                else if (!DateTime.TryParse(lastDate, out DateTime parsedLastDate) || parsedLastDate.Date < DateTime.Today)
+                    catch (Exception ex)
+                    {
+                        await createOrders.CreateNewOrderAsync();
+                    }
+
+                if (!DateTime.TryParse(lastDate, out DateTime parsedLastDate) || parsedLastDate.Date < DateTime.Today)
                 {
                     await createOrders.CreateNewOrderAsync();
                     fullOrder = null;

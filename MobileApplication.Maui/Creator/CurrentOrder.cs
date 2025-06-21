@@ -20,7 +20,7 @@ namespace MobileApplication.Maui.Creator
                 Console.WriteLine("Error", "No orders available for delivery.", "OK");
                 return;
             }
-            Order currentOrder = fullOrder.LastOrDefault();
+            Order currentOrder = fullOrder.FirstOrDefault();
             Preferences.Set("Current Order", JsonSerializer.Serialize(currentOrder));
         }
     }
