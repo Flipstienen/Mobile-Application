@@ -39,7 +39,7 @@
                            FontSize="18"
                            TextColor="#FFF5F3" />
 
-                    <Button Text="{Binding CurrentOrderDisplay.DeliveryStateDisplay}"
+                    <Button Text="Complete Order"
                            FontSize="18"
                            Clicked="OnClickComplete"
                            TextColor="#FFF5F3"

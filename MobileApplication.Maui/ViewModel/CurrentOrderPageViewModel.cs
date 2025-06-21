@@ -72,7 +72,6 @@ namespace MobileApplication.Maui.ViewModel
                 Id = currentOrder.Id,
                 OrderDate = currentOrder.OrderDate,
                 CustomerDisplay = $"Customer: {currentOrder.Customer?.Name ?? "N/A"}, Address: {currentOrder.Customer?.Address ?? "N/A"}",
-                DeliveryStateDisplay = $"Last Delivery State: {currentOrder.DeliveryStates.LastOrDefault().State}"
             };
 
             if (isNewOrderCreated)
@@ -108,7 +107,6 @@ namespace MobileApplication.Maui.ViewModel
             public int Id { get; set; }
             public DateTime OrderDate { get; set; }
             public string CustomerDisplay { get; set; }
-            public string DeliveryStateDisplay { get; set; }
         }
     }
 }
