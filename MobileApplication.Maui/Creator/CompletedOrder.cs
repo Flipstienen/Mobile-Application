@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using MobileApplication.Core.Helpers;
+﻿using System.Text.Json;
 using MobileApplication.Core.Model;
 
 namespace MobileApplication.Maui.Creator

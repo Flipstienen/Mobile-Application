@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;
 
@@ -30,11 +25,11 @@ namespace MobileApplication.Maui.Creator
                     {
                         List<int> orders = JsonSerializer.Deserialize<List<int>>(Preferences.Get("Orders", ""));
                         orders.Add(id);
-                        Preferences.Set("Orders",JsonSerializer.Serialize(orders));
+                        Preferences.Set("Orders", JsonSerializer.Serialize(orders));
                     }
                     else
                     {
-                        List<int> one = new List<int> { id};
+                        List<int> one = new List<int> { id };
                         Preferences.Set("Orders", JsonSerializer.Serialize(one));
                     }
                 }
