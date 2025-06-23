@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
 using Shiny;
 using Shiny.Notifications;
-
+using System.Text.Json;
 namespace MobileApplication.Maui;
 
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
+        Preferences.Set("working", JsonSerializer.Serialize(false));
         var builder = MauiApp.CreateBuilder();
 
         DotNetEnv.Env.Load();

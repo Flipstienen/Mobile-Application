@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.Json;
-
 using CommunityToolkit.Mvvm.ComponentModel;
 using MobileApplication.Core.Helpers;
 using MobileApplication.Core.Model;

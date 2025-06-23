@@ -25,19 +25,30 @@ public partial class CurrentOrderPage : ContentPage
 
     private async void OnClickComplete(object send, EventArgs e)
     {
+        Preferences.Set("working", JsonSerializer.Serialize(true));
+
         await DisplayAlert("completed", "Order is Completed", "ok");
+
         await Shell.Current.Navigation.PopToRootAsync();
+
         var item = JsonSerializer.Deserialize<Order>(Preferences.Get("Current Order", ""));
+
         CompletedOrder completedOrder = new CompletedOrder();
+
         await completedOrder.OrderCompleted(item.Id);
 
         var currentOrderPageViewModel = new CurrentOrderPageViewModel();
+
         await currentOrderPageViewModel.LoadCurrentOrderAsync();
+
         if (Preferences.ContainsKey("Completed"))
         {
             await DisplayAlert("Order Completed", Preferences.Get("Completed", ""), "OK");
             Preferences.Remove("Completed");
         }
+
         await Shell.Current.GoToAsync(nameof(CurrentOrderPage));
+        
+        Preferences.Set("working", JsonSerializer.Serialize(false));
     }
 }
