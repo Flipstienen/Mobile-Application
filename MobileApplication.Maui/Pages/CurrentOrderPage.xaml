@@ -45,9 +45,12 @@
                            TextColor="#FFF5F3"
                             />
 
+                    <Label Text="{Binding CurrentOrderDisplay.CompletedOrders}"
+                           FontSize="18"
+                           TextColor="#FFF5F3" />
                 </VerticalStackLayout>
             </Frame>
-
+            
             <Label Text="No current order available."
                    FontSize="18"
                    TextColor="Gray"

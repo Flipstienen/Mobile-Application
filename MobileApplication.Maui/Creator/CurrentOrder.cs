@@ -12,7 +12,6 @@ namespace MobileApplication.Maui.Creator
             fullOrder = fullOrder.Where(o => o.DeliveryStates.LastOrDefault().State < 3).ToList();
             if (fullOrder.Count == 0)
             {
-                Console.WriteLine("Error", "No orders available for delivery.", "OK");
                 return;
             }
             Order currentOrder = fullOrder.FirstOrDefault();

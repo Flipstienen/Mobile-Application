@@ -32,7 +32,6 @@ namespace MobileApplication.Maui.ViewModel
 
             if (DeliveryServices == null)
             {
-                Console.WriteLine("Error", "Delivery service not found!", "OK");
                 return;
             }
 
@@ -78,7 +77,7 @@ namespace MobileApplication.Maui.ViewModel
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"API Error: {ex.Message}");
+                return;
             }
         }
     }

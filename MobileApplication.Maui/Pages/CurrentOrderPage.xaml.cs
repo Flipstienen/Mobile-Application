@@ -25,6 +25,7 @@ public partial class CurrentOrderPage : ContentPage
 
     private async void OnClickComplete(object send, EventArgs e)
     {
+        await DisplayAlert("completed", "Order is Completed", "ok");
         await Shell.Current.Navigation.PopToRootAsync();
         var item = JsonSerializer.Deserialize<Order>(Preferences.Get("Current Order", ""));
         CompletedOrder completedOrder = new CompletedOrder();

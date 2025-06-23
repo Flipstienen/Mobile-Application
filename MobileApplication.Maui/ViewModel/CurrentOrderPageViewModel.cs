@@ -22,9 +22,15 @@ namespace MobileApplication.Maui.ViewModel
 
         public async Task LoadCurrentOrderAsync()
         {
+            int count = 0;
+            var fullOrder = new List<Order>();
+
             var lastDate = Preferences.Get("LastUpdateDate", "");
+            
             var currentOrder = new Order();
+            
             string apiKey = EnvHelper.Instance.GetEnvironmentVariable("API_KEY", "");
+
             var DeliveryServices = await ApiHelper.Instance.GetAsync<DeliveryService>($"/api/DeliveryServices/{apiKey}");
 
             bool isNewOrderCreated = false;
@@ -37,10 +43,10 @@ namespace MobileApplication.Maui.ViewModel
                     await lastOrder.CreateLastOrder(DeliveryServices.id);
                     isNewOrderCreated = true;
                 }
+                fullOrder = JsonSerializer.Deserialize<List<Order>>(Preferences.Get("LastOrder", ""));
 
-                var fullOrder = JsonSerializer.Deserialize<List<Order>>(Preferences.Get("LastOrder", ""));
-                int count = fullOrder.Count(o => o.DeliveryStates.LastOrDefault().State >= 3);
-                if (count == fullOrder.Count)
+                count = fullOrder.Count(o => o.DeliveryStates.LastOrDefault().State >= 3);
+                if (count == fullOrder.Count())
                 {
                     await createOrders.CreateNewOrderAsync();
                     await lastOrder.CreateLastOrder(DeliveryServices.id);
@@ -66,12 +72,14 @@ namespace MobileApplication.Maui.ViewModel
                 currentOrder = JsonSerializer.Deserialize<Order>(Preferences.Get("Current Order", ""));
                 isNewOrderCreated = true;
             }
-
+            fullOrder = JsonSerializer.Deserialize<List<Order>>(Preferences.Get("LastOrder", ""));
+            count = fullOrder.Count(o => o.DeliveryStates.LastOrDefault().State >= 3);
             CurrentOrderDisplay = new OrderDisplayItem
             {
                 Id = currentOrder.Id,
                 OrderDate = currentOrder.OrderDate,
                 CustomerDisplay = $"Customer: {currentOrder.Customer?.Name ?? "N/A"}, Address: {currentOrder.Customer?.Address ?? "N/A"}",
+                CompletedOrders = $"Completed: {count}/{fullOrder.Count()}"
             };
 
             if (isNewOrderCreated)
@@ -107,6 +115,7 @@ namespace MobileApplication.Maui.ViewModel
             public int Id { get; set; }
             public DateTime OrderDate { get; set; }
             public string CustomerDisplay { get; set; }
+            public string CompletedOrders { get; set; }
         }
     }
 }

@@ -27,7 +27,6 @@ public sealed class ApiHelper
 
         if (string.IsNullOrWhiteSpace(_apiKey))
         {
-            Console.WriteLine("Warning: API_KEY is not set.");
         }
 
         _httpClient.DefaultRequestHeaders.Add("ApiKey", _apiKey);
