@@ -8,24 +8,27 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="24">
             <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
-                <Frame HasShadow="True" CornerRadius="12" Padding="0" BackgroundColor="Transparent">
-                    <Frame Style="{StaticResource ButtonFrameStyle}">
-                        <Button Text="📦 Current Order"
-                            Style="{StaticResource CustomButtonStyle}"
-                            Clicked="OnCurrentOrderClicked"/>
-                    </Frame>
+                <Frame Style="{StaticResource ButtonFrameStyle}">
+                    <VerticalStackLayout>
+                        <Frame>
+                            <Button Text="📦 Current Order"
+                                Style="{StaticResource CustomButtonStyle}"
+                                Clicked="OnCurrentOrderClicked"/>
+                        </Frame>
 
-                    <Frame Style="{StaticResource ButtonFrameStyle}">
-                        <Button Text="📋 Schedule"
-                            Style="{StaticResource CustomButtonStyle}"
-                            Clicked="OnScheduleClicked"/>
-                    </Frame>
+                        <Frame>
+                            <Button Text="📋 Schedule"
+                                Style="{StaticResource CustomButtonStyle}"
+                                Clicked="OnScheduleClicked"/>
+                        </Frame>
 
-                    <Frame Style="{StaticResource ButtonFrameStyle}">
-                        <Button Text="🌧️ Weather"
-                            Style="{StaticResource CustomButtonStyle}"
-                            Clicked="OnWeatherClicked"/>
-                    </Frame>
+                        <Frame>
+                            <Button Text="🌧️ Weather"
+                                Style="{StaticResource CustomButtonStyle}"
+                                Clicked="OnWeatherClicked"/>
+                        </Frame>
+                    </VerticalStackLayout>
+                </Frame>
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

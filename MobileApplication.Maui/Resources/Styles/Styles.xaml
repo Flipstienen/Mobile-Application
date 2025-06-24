@@ -62,7 +62,7 @@
     
     <Style x:Key="HomeButtonStyle" TargetType="Button">
          <Setter Property="WidthRequest" Value="325"/>
-         <Setter Property="HeightRequest" Value="80"/>
+         <Setter Property="HeightRequest" Value="100"/>
          <Setter Property="BackgroundColor" Value="Black"/>
          <Setter Property="TextColor" Value="White"/>
          <Setter Property="FontSize" Value="18"/>
