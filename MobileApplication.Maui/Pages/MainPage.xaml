@@ -8,27 +8,25 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="24">
             <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
-                <Frame Style="{StaticResource ButtonFrameStyle}">
-                    <VerticalStackLayout>
-                        <Frame>
-                            <Button Text="📦 Current Order"
-                                Style="{StaticResource CustomButtonStyle}"
+                <VerticalStackLayout>
+                    <Frame Style="{StaticResource ButtonFrameStyle}">
+                        <Button Text="📦 Current Order"
+                                Style="{StaticResource HomeButtonStyle}"
                                 Clicked="OnCurrentOrderClicked"/>
-                        </Frame>
+                    </Frame>
 
-                        <Frame>
-                            <Button Text="📋 Schedule"
-                                Style="{StaticResource CustomButtonStyle}"
+                    <Frame Style="{StaticResource ButtonFrameStyle}">
+                        <Button Text="📋 Schedule"
+                                Style="{StaticResource HomeButtonStyle}"
                                 Clicked="OnScheduleClicked"/>
-                        </Frame>
+                    </Frame>
 
-                        <Frame>
-                            <Button Text="🌧️ Weather"
-                                Style="{StaticResource CustomButtonStyle}"
+                    <Frame Style="{StaticResource ButtonFrameStyle}">
+                        <Button Text="🌧️ Weather"
+                                Style="{StaticResource HomeButtonStyle}"
                                 Clicked="OnWeatherClicked"/>
-                        </Frame>
-                    </VerticalStackLayout>
-                </Frame>
+                    </Frame>
+                </VerticalStackLayout>
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

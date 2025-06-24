@@ -61,8 +61,8 @@
     </Style>
     
     <Style x:Key="HomeButtonStyle" TargetType="Button">
-         <Setter Property="WidthRequest" Value="325"/>
-         <Setter Property="HeightRequest" Value="100"/>
+         <Setter Property="WidthRequest" Value="340"/>
+         <Setter Property="HeightRequest" Value="125"/>
          <Setter Property="BackgroundColor" Value="Black"/>
          <Setter Property="TextColor" Value="White"/>
          <Setter Property="FontSize" Value="18"/>
@@ -74,7 +74,7 @@
         <Setter Property="HasShadow" Value="True"/>
         <Setter Property="CornerRadius" Value="12"/>
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="Margin" Value="20"/>
     </Style>
 
     <Style x:Key="WeatherStatLabelStyle" TargetType="Label">
