@@ -59,6 +59,28 @@
         <Setter Property="Padding" Value="10"/>
         <Setter Property="HorizontalOptions" Value="Fill"/>
     </Style>
+    
+    <Style x:Key="HomeButtonStyle" TargetType="Button">
+         <Setter Property="WidthRequest" Value="325"/>
+         <Setter Property="HeightRequest" Value="80"/>
+         <Setter Property="BackgroundColor" Value="Black"/>
+         <Setter Property="TextColor" Value="White"/>
+         <Setter Property="FontSize" Value="18"/>
+         <Setter Property="FontAttributes" Value="Bold"/>
+         <Setter Property="CornerRadius" Value="12"/>
+    </Style>
+
+    <Style x:Key="ButtonFrameStyle" TargetType="Frame">
+        <Setter Property="HasShadow" Value="True"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="WeatherStatLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="TextColor" Value="White" />
+    </Style>
 
     <Style TargetType="CheckBox">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
