@@ -8,44 +8,26 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="24">
             <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
-                <Frame HasShadow="True" CornerRadius="12" Padding="0" BackgroundColor="Transparent">
-                    <Button Text="📦 Current Order"
-                            Clicked="OnCurrentOrderClicked"
-                            WidthRequest="325"
-                            HeightRequest="80"
-                            BackgroundColor="Black"
-                            TextColor="White"
-                            FontSize="18"
-                            FontAttributes="Bold"
-                            CornerRadius="12"/>
-                </Frame>
+                <VerticalStackLayout>
+                    <Frame Style="{StaticResource ButtonFrameStyle}">
+                        <Button Text="📦 Current Order"
+                                Style="{StaticResource HomeButtonStyle}"
+                                Clicked="OnCurrentOrderClicked"/>
+                    </Frame>
 
-                <Frame HasShadow="True" CornerRadius="12" Padding="0" BackgroundColor="Transparent">
-                    <Button Text="📋 Schedule"
-                            Clicked="OnScheduleClicked"
-                            WidthRequest="325"
-                            HeightRequest="80"
-                            BackgroundColor="Black"
-                            TextColor="White"
-                            FontSize="18"
-                            FontAttributes="Bold"
-                            CornerRadius="12"/>
-                </Frame>
+                    <Frame Style="{StaticResource ButtonFrameStyle}">
+                        <Button Text="📋 Schedule"
+                                Style="{StaticResource HomeButtonStyle}"
+                                Clicked="OnScheduleClicked"/>
+                    </Frame>
 
-                <Frame HasShadow="True" CornerRadius="12" Padding="0" BackgroundColor="Transparent">
-                    <Button Text="🌧️ Weather"
-                            Clicked="OnWeatherClicked"
-                            WidthRequest="325"
-                            HeightRequest="80"
-                            BackgroundColor="Black"
-                            TextColor="White"
-                            FontSize="18"
-                            FontAttributes="Bold"
-                            CornerRadius="12"/>
-                </Frame>
-
+                    <Frame Style="{StaticResource ButtonFrameStyle}">
+                        <Button Text="🌧️ Weather"
+                                Style="{StaticResource HomeButtonStyle}"
+                                Clicked="OnWeatherClicked"/>
+                    </Frame>
+                </VerticalStackLayout>
             </VerticalStackLayout>
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -10,10 +10,12 @@
         <VerticalStackLayout Padding="20" Spacing="10" HorizontalOptions="Center">
 
             <Label Text="Weather" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+
             <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
                 <Label x:Name="CityLabel" Text="City" FontSize="20" FontAttributes="Bold" TextColor="White" />
                 <Label x:Name="DateLabel" Text="Date" FontSize="16" VerticalOptions="Center" TextColor="White" />
             </HorizontalStackLayout>
+
             <HorizontalStackLayout Spacing="10">
                 <Label x:Name="TemperatureLabel" Text="--°"
                     FontSize="64" FontAttributes="Bold" TextColor="White" />
@@ -22,12 +24,13 @@
                    WidthRequest="64" HeightRequest="48"
                    VerticalOptions="Center" />
             </HorizontalStackLayout>
+            
             <!-- ^^ this placeholder still has to be added. -->
             <Label x:Name="ConditionLabel" Text="Loading..." FontSize="22" />
-            <Label x:Name="LowLabel" Text="Low --°" FontSize="18" />
-            <Label x:Name="HighLabel" Text="High --°" FontSize="18" />
-            <Label x:Name="WindLabel" Text="Wind --kph / --" FontSize="18" />
-            <Label x:Name="RainChanceLabel" Text="Chance of Rain --%" FontSize="18" />
+            <Label x:Name="LowLabel" Text="Low --°" Style="{StaticResource WeatherStatLabelStyle}" />
+            <Label x:Name="HighLabel" Text="High --°" Style="{StaticResource WeatherStatLabelStyle}" />
+            <Label x:Name="WindLabel" Text="Wind --kph / --" Style="{StaticResource WeatherStatLabelStyle}" />
+            <Label x:Name="RainChanceLabel" Text="Chance of Rain --%" Style="{StaticResource WeatherStatLabelStyle}" />
 
             <BoxView HeightRequest="1" Color="#CCC" Margin="0,20" WidthRequest="250" />
 
@@ -42,8 +45,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Date}" FontSize="18" />
-                            <Label Grid.Column="1" Text="{Binding Summary}" FontSize="18" HorizontalTextAlignment="End" />
+                            <Label Text="{Binding Date}" Style="{StaticResource WeatherStatLabelStyle}" />
+                            <Label Grid.Column="1" Text="{Binding Summary}" Style="{StaticResource WeatherStatLabelStyle}" HorizontalTextAlignment="End" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
