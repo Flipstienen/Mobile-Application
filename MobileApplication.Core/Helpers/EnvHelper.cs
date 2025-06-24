@@ -3,6 +3,7 @@ using DotNetEnv;
 
 namespace MobileApplication.Core.Helpers
 {
+    // het feit dat er sealed staat betekent eigenlijk gewoon dat er geen erving kan plaatsenvinden dus je kan bijv. niet ApiHelper : EnvHelper maken.
     public sealed class EnvHelper
     {
         private static readonly Lazy<EnvHelper> _instance = new(() => new EnvHelper());
