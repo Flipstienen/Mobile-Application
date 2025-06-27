@@ -57,6 +57,7 @@ namespace MobileApplication.Maui.ViewModel
             else if (!DateTime.TryParse(lastDate, out DateTime parsedLastDate) || parsedLastDate.Date < DateTime.Today)
             {
                 await createOrders.CreateNewOrderAsync();
+                await lastOrder.CreateLastOrder(DeliveryServices.id);
                 isNewOrderCreated = true;
             }
 
