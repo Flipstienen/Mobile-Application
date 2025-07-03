@@ -60,7 +60,7 @@ public partial class WeatherPage : ContentPage
             // Forecast
             var forecastList = new List<ForecastDisplay>();
 
-            for (int i = 1; i <= 3; i++)
+            for (int i = 0; i <= 2; i++)
             {
                 var day = forecastDays[i];
                 var date = DateTime.Parse(day.GetProperty("date").GetString() ?? "");
